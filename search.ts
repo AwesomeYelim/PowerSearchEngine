@@ -1,6 +1,6 @@
-const axios = require("axios");
-const cheerio = require("cheerio");
-const puppeteer = require("puppeteer");
+import axios from "axios";
+import cheerio from "cheerio";
+import puppeteer from "puppeteer";
 
 // const getHtml = async () => {
 //   try {
@@ -57,7 +57,7 @@ type List = { rank: number; title: string; link: string };
       rank: i + 1,
       // 4
       title: $(element).find("a.sc-kasBVs div.sc-eInJlc .sc-gtfDJT").text().replace(/\s/g, ""),
-      link: $(element).find("a.sc-kasBVs").attr("href"),
+      link: $(element).find("a.sc-kasBVs").attr("href") as string,
     };
   });
   console.log("bodyList : ", ulList);
@@ -98,7 +98,7 @@ type List = { rank: number; title: string; link: string };
       rank: i + 1,
       // 4
       title: $(element).find("a.group div.w-full h2.text-heading").text().replace(/\s/g, ""),
-      link: $(element).find("a.group").attr("href"),
+      link: $(element).find("a.group").attr("href") as string,
     };
   });
   console.log("bodyList : ", ulList);
@@ -137,7 +137,7 @@ type List = { rank: number; title: string; link: string };
         .find("a.flea-market-article-link div.article-info div.article-title-content span.article-title")
         .text()
         .replace(/\s/g, ""),
-      link: $(element).find("a.flea-market-article-link").attr("href"),
+      link: $(element).find("a.flea-market-article-link").attr("href") as string,
     };
   });
   console.log("bodyList : ", ulList);
