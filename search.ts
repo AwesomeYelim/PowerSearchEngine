@@ -34,7 +34,7 @@ const puppeteer = require("puppeteer");
 // };
 
 // getHtml();
-
+type List = { rank: number; title: string; link: string };
 // 번개장터
 (async () => {
   // Launch a headless browser instance
@@ -50,9 +50,9 @@ const puppeteer = require("puppeteer");
   const $ = cheerio.load(html);
   const lists = $("div.sc-exkUMo > div.sc-kcDeIU");
 
-  let ulList = [];
+  let ulList: List[] = [];
 
-  lists.map((i, element) => {
+  lists.map((i: number, element: any) => {
     ulList[i] = {
       rank: i + 1,
       // 4
@@ -91,9 +91,9 @@ const puppeteer = require("puppeteer");
   const $ = cheerio.load(html);
   const lists = $("ul.grid > li");
 
-  let ulList = [];
+  let ulList: List[] = [];
 
-  lists.map((i, element) => {
+  lists.map((i: number, element: any) => {
     ulList[i] = {
       rank: i + 1,
       // 4
@@ -121,15 +121,15 @@ const puppeteer = require("puppeteer");
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
-  await page.goto("https://www.daangn.com/search/%EC%A0%A0%ED%8B%80%EB%AA%AC%EC%8A%A4%ED%84%B0/");
+  await page.goto("https://www.daangn.com/search/%EC%A0%A0%ED%8B%80%EB%AA%AC%EC%8A%A4%ED%84%B0");
 
   const html = await page.content();
   const $ = cheerio.load(html);
-  const lists = $("div.articles-wrap > article.flea-market-article");
+  const lists = $("div#flea-market-wrap > article.flea-market-article");
 
-  let ulList = [];
+  let ulList: List[] = [];
 
-  lists.map((i, element) => {
+  lists.map((i: number, element: any) => {
     ulList[i] = {
       rank: i + 1,
       // 4
