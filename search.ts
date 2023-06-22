@@ -62,43 +62,66 @@ type List = { rank: number; title: string; link: string };
       sort: "RECENT_SORT",
     });
     const dang = await axios.get(
-      "https://www.daangn.com/search/%EC%B2%AD%EC%A3%BC%20%EC%9E%90%EC%A0%84%EA%B1%B0/more/flea_market?page=2"
+      "https://www.daangn.com/search/%EC%B2%AD%EC%A3%BC%20%EC%9E%90%EC%A0%84%EA%B1%B0/more/flea_market?page=1"
     );
-    console.log(
-      { bunjang: bunjang.data.list.map((el: { [key in string]: string | boolean | null | [] | number }) => el.name) },
-      { dang: dang.data },
-      { jung: jung.data.data.items }
-    );
+    // console.log(
+    //   { bunjang: bunjang.data.list.map((el: { [key in string]: string | boolean | null | [] | number }) => el.name) },
+    //   { dang: dang.data },
+    //   { jung: jung.data.data.items }
+    // );
+    // console.log(dang.data);
+    // const par = new DOMParser();
+    // const parse = par.parseFromString(dang.data, "text/html");
+    // console.log(parse);
+    // const coverDanggn = `<div class="cover">${dang.data}</div>`;
+
+    const $ = cheerio.load(dang.data);
+    const lists = $("article.flat-card");
+
+    let ulList: List[] = [];
+
+    lists.map((i: number, element: BasicAcceptedElems<AnyNode>) => {
+      ulList[i] = {
+        rank: i + 1,
+        // 4
+        title: $(element)
+          .find("a.flea-market-article-link div.article-info div.article-title-content")
+          .text()
+          .replace(/\s/g, ""),
+        link: $(element).find("a.flea-market-article-link").attr("href") as string,
+      };
+    });
+    console.log(ulList);
   } catch (error) {
     console.log(error);
   }
-  const browser = await puppeteer.launch({ headless: false });
-  const page = await browser.newPage();
+  // const browser = await puppeteer.launch({ headless: false });
+  // const page = await browser.newPage();
 
-  // Navigate to your app's URL
-  // await page.goto("https://www.daangn.com/region");
-  await page.goto("https://m.bunjang.co.kr/search/products?order=date&q=%ED%9C%B4%EB%A8%BC%EB%A9%94%EC%9D%B4%EB%93%9C");
-  // Perform interactions and extract data
+  // // Navigate to your app's URL
+  // // await page.goto("https://www.daangn.com/region");
+  // await page.goto("https://m.bunjang.co.kr/search/products?order=date&q=%ED%9C%B4%EB%A8%BC%EB%A9%94%EC%9D%B4%EB%93%9C");
+  // // Perform interactions and extract data
 
-  const html = await page.content();
-  const $ = cheerio.load(html);
-  const lists = $("div.sc-exkUMo > div.sc-kcDeIU");
+  // const html = await page.content();
+  // const $ = cheerio.load(html);
+  // const lists = $("div.sc-exkUMo > div.sc-kcDeIU");
 
-  let ulList: List[] = [];
+  // let ulList: List[] = [];
 
-  lists.map((i: number, element: BasicAcceptedElems<AnyNode>) => {
-    ulList[i] = {
-      rank: i + 1,
-      // 4
-      title: $(element).find("a.sc-kasBVs div.sc-eInJlc .sc-gtfDJT").text().replace(/\s/g, ""),
-      link: $(element).find("a.sc-kasBVs").attr("href") as string,
-    };
-  });
-  // console.log("bodyList : ", ulList);
+  // lists.map((i: number, element: BasicAcceptedElems<AnyNode>) => {
+  //   ulList[i] = {
+  //     rank: i + 1,
+  //     // 4
+  //     title: $(element).find("a.sc-kasBVs div.sc-eInJlc .sc-gtfDJT").text().replace(/\s/g, ""),
+  //     link: $(element).find("a.sc-kasBVs").attr("href") as string,
+  //   };
+  // });
+  // // console.log("bodyList : ", ulList);
 
-  const title = await page.title();
+  // const title = await page.title();
 
-  await browser.close();
+  // await browser.close();
 })();
 
 // // 중고나라
