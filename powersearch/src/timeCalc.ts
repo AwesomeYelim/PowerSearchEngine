@@ -1,4 +1,7 @@
 export const elapsedTime = (date: number) => {
+  if (date === 0) {
+    return "시간 추적 불가";
+  }
   const start = new Date(date * 1000);
   const end = new Date();
 

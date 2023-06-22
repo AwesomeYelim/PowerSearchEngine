@@ -34,7 +34,7 @@ const Item: React.FC<List> = (props) => {
       <h3 {...titleCondition}>{title}</h3>
       <span>{price}</span>
       <span className="region" {...titleCondition}>
-        {region}
+        {region ? region : "위치 정보 없음"}
       </span>
       <span>{elapsedTime(time as number)}</span>
     </a>
@@ -42,9 +42,10 @@ const Item: React.FC<List> = (props) => {
 };
 const App = (): JSX.Element => {
   const [data, setData] = useState<List[]>();
+
   const submitHandler = async (e: any) => {
     e.preventDefault();
-
+    setData([]);
     try {
       const bunjang = await axios.get(
         `https://api.bunjang.co.kr/api/1/find_v2.json?q=${e.target.name.value}&/order=date&page=1&request_id=2023620203531&stat_device=w&n=100&stat_category_required=1&req_ref=search&version=4`
@@ -103,7 +104,7 @@ const App = (): JSX.Element => {
             .replace(/\s/g, ""),
           link: $(element).find("a.flea-market-article-link").attr("href") as string,
           img: $(element).find("a.flea-market-article-link div.card-photo img").attr("src") as string,
-          region: $(element).find("a.flea-market-article-link p.article-region-name").text().replace(/\s/g, ""),
+          region: $(element).find("a.flea-market-article-link p.article-region-name").text(),
           price: $(element).find("a.flea-market-article-link p.article-price").text().replace(/\s/g, ""),
         };
       });
@@ -122,13 +123,13 @@ const App = (): JSX.Element => {
           };
         }),
         daangn: ulList.map((el) => {
-          const time = el?.img?.match("/\\d{6}/");
-          const calcT = (time as RegExpMatchArray)[0];
-          const date = new Date(+calcT.slice(1, 5), +calcT.slice(5, 7) - 1, 1, 12, 0, 0, 0);
+          const time = el.img.match("/\\d{6}/");
+          const calcT = time && (time as RegExpMatchArray)[0];
+          const date = calcT && new Date(+calcT.slice(1, 5), +calcT.slice(5, 7) - 1, 1, 12, 0, 0, 0);
           return {
             ...el,
             link: `https://www.daangn.com${el.link}`,
-            time: date.getTime() / 1000,
+            time: date ? date.getTime() / 1000 : 0,
           };
         }),
         jungna: jungna.data.data.items.map((el: Obj, i: number) => {
@@ -174,9 +175,13 @@ const App = (): JSX.Element => {
         <button type="submit">검색</button>
       </form>
       <div className="data_list">
-        {data?.map((item) => {
-          return <Item {...item} />;
-        })}
+        {data?.length ? (
+          data.map((item) => {
+            return <Item {...item} />;
+          })
+        ) : (
+          <div className="loading">Loading</div>
+        )}
       </div>
     </>
   );

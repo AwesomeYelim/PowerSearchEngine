@@ -2,6 +2,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
+  height: fit-content;
+  .loading {
+    width: 100%;
+    margin: 20% auto;
+    text-align: center;
+  }
   a {
     display: flex;
     flex-direction: column;
