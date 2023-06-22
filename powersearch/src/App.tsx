@@ -175,13 +175,10 @@ const App = (): JSX.Element => {
         <button type="submit">검색</button>
       </form>
       <div className="data_list">
-        {data?.length ? (
+        {data?.length &&
           data.map((item) => {
             return <Item {...item} />;
-          })
-        ) : (
-          <div className="loading">Loading</div>
-        )}
+          })}
       </div>
     </>
   );

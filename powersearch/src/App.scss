@@ -1,8 +1,9 @@
 .data_list {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 20px;
   height: fit-content;
+  justify-content: initial;
   .loading {
     width: 100%;
     margin: 20% auto;
