@@ -142,7 +142,7 @@ const CtSearch = (): JSX.Element => {
       };
 
       setData(
-        [...(data as List<keyof Data>[]), ...eachData.bunjang, ...eachData.daangn, ...eachData.jungna].sort((a, b) => {
+        [...eachData.bunjang, ...eachData.daangn, ...eachData.jungna].sort((a, b) => {
           return b.time - a.time;
         })
       );
@@ -155,21 +155,12 @@ const CtSearch = (): JSX.Element => {
     console.log((ref.current as HTMLDivElement).scrollHeight, window.scrollY);
 
     if ((ref.current as HTMLDivElement).scrollHeight - window.scrollY < 1000) {
-      window.scrollTo(0, window.scrollY - 500);
+      // window.scrollTo(0, window.scrollY - 500);
       // submitHandler();
     }
   }, []);
 
   useEffect(() => {
-    // const io = new IntersectionObserver(
-    //   () => {
-    //     console.log("asdasd");
-    //   },
-    //   {
-    //     root: document.querySelector(".wrap"),
-    //   }
-    // );
-    // io.observe(document.querySelector(".data_list") as Element);
     window.addEventListener("scroll", handScroll);
   }, [handScroll]);
 
