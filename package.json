@@ -31,7 +31,7 @@
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://awesomeyelim.github.io/PowerSearchEngine/",
+  "homepage": "https://awesomeyelim.github.io/PowerSearchEngine",
   "eslintConfig": {
     "extends": [
       "react-app",
