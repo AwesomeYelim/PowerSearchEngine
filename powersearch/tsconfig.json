@@ -16,5 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "search.ts"]
+  "include": ["src", "search.ts"],
+  "typeRoots": ["src/types"]
 }

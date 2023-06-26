@@ -1,56 +1,116 @@
-.data_list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  height: fit-content;
-  justify-content: initial;
-  .loading {
-    width: 100%;
-    margin: 20% auto;
-    text-align: center;
-  }
-  a {
+.wrap {
+  height: 100%;
+  overflow-x: hidden;
+  form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 150px;
-    height: 280px;
-    justify-content: space-between;
-    text-decoration: none;
-    text-align: center;
-    color: black;
-    font-size: 0.7rem;
-    overflow: hidden;
-    box-sizing: border-box;
-    padding: 0 10px 10px 10px;
-    &.bunjang {
-      border: 1px solid rgba(167, 15, 15, 0.22);
-      box-shadow: 3px 3px 3px rgba(167, 15, 15, 0.135);
-      &:hover {
-        background-color: rgba(167, 15, 15, 0.135);
-        box-shadow: 0px 0px 0px;
-      }
-    }
-    &.daangn {
-      border: 1px solid rgb(255, 157, 0, 0.22);
-      box-shadow: 3px 3px 3px rgb(255, 157, 0, 0.135);
+    width: 100%;
+    border-bottom: 1px solid black;
+    margin-bottom: 30px;
 
-      &:hover {
-        background-color: rgb(255, 157, 0, 0.135);
-        box-shadow: 0px 0px 0px;
-      }
-    }
-    &.jungna {
-      border: 1px solid rgb(0, 193, 128, 0.22);
-      box-shadow: 3px 3px 3px rgb(0, 193, 128, 0.135);
-      &:hover {
-        background-color: rgb(0, 193, 128, 0.135);
-        box-shadow: 0px 0px 0px;
+    label {
+      width: 100%;
+      background-color: rgb(244, 244, 244);
+      padding: 10px;
+      margin-bottom: 10px;
+      img {
+        display: block;
+        width: 150px;
+        margin: 0 auto;
       }
     }
 
-    .region {
-      color: #ccc;
+    .input_wrap {
+      display: flex;
+      width: 100%;
+
+      input {
+        width: 100%;
+        border: 0px;
+        &:focus {
+          outline: none;
+        }
+
+        &::placeholder {
+          color: rgb(212, 212, 212);
+          font-size: 12px;
+        }
+      }
+      button {
+        text-align: center;
+        min-width: 50px;
+        // border: 1px solid black;
+        border: none;
+        background: none;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .data_list {
+    width: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    height: fit-content;
+    justify-content: space-around;
+    margin: 0 auto;
+    padding: 10px;
+    .loading {
+      width: 100%;
+      margin: 20% auto;
+      text-align: center;
+    }
+    a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 150px;
+      height: 280px;
+      justify-content: space-between;
+      text-decoration: none;
+      text-align: center;
+      color: black;
+      font-size: 0.7rem;
+      overflow: hidden;
+      box-sizing: border-box;
+      padding: 0 10px 10px 10px;
+
+      .region {
+        color: #ccc;
+      }
+
+      &:hover {
+        .region {
+          color: white;
+        }
+      }
+
+      &.bunjang {
+        border: 1px solid #d80c18;
+        box-shadow: 3px 3px 3px #7e7e7e75;
+        &:hover {
+          background-color: #d80c1853;
+          box-shadow: 0px 0px 0px;
+        }
+      }
+      &.daangn {
+        border: 1px solid#F76706;
+        box-shadow: 3px 3px 3px #7e7e7e75;
+
+        &:hover {
+          background-color: #f7660653;
+          box-shadow: 0px 0px 0px;
+        }
+      }
+      &.jungna {
+        border: 1px solid #08cc5a;
+        box-shadow: 3px 3px 3px #7e7e7e75;
+        &:hover {
+          background-color: #08cc5a53;
+          box-shadow: 0px 0px 0px;
+        }
+      }
     }
   }
 }
