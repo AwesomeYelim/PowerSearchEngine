@@ -301,7 +301,7 @@ const CtSearch = (): JSX.Element => {
         <div className="input_wrap">
           <input type="text" id="name" name="name" autoComplete="name" required placeholder="검색어를 입력하세요." />
           <button type="submit">
-            <img src={search} alt="search" />
+            <img className="search_i" src={search} alt="search" />
           </button>
         </div>
       </form>

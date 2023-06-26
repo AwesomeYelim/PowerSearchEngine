@@ -15,13 +15,16 @@ export const Item: React.FC<List> = (props) => {
 
   return (
     <a href={link} className={classNames([rank])} target="_blank" rel="noreferrer">
-      <img src={img} alt={title} style={{ width: 150, height: "50%" }} />
+      <img src={img} alt={title} />
       <h3 {...titleCondition}>{title}</h3>
       <span>{price}</span>
       <span className="region" {...titleCondition}>
         {region ? region : "위치 정보 없음"}
       </span>
-      <span>{elapsedTime(time as number)}</span>
+      <div className="item_footer">
+        <i />
+        <span className="before_time">{elapsedTime(time as number)}</span>
+      </div>
     </a>
   );
 };
