@@ -281,9 +281,9 @@ const CtSearch = (): JSX.Element => {
       pageCount++;
       // console.log(pageCount);
 
-      scroll(pageCount);
+      // scroll(pageCount);
 
-      window.scrollTo(0, window.scrollY - 500);
+      // window.scrollTo(0, window.scrollY - 500);
       // submitHandler();
     }
   }, []);
