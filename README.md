@@ -1,2 +1,2 @@
 내가 쓰려고 만든...
-<a href="https://awesomeyelim.github.io/PowerSearchEngine/">PowerSearchEngine</a>
+<a href="https://awesomeyelim.github.io/PowerSearchEngine/" target="_blank">PowerSearchEngine</a>
