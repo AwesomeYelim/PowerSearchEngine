@@ -31,6 +31,7 @@ const CtSearch = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(true);
   const divRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+
   let pageCount = 1;
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement> | React.RefObject<HTMLFormElement>, pageNum = 1) => {
@@ -40,14 +41,14 @@ const CtSearch = (): JSX.Element => {
       (e as React.FormEvent<HTMLFormElement>).preventDefault();
     }
 
-    const value = (() => {
-      if (pageNum === 1) {
-        return ((e as React.FormEvent<HTMLFormElement>).target as HTMLFormElement & { name: { value: string } }).name
-          .value;
-      } else {
-        return (e as any).current.name.value;
-      }
-    })();
+    type Custom = HTMLFormElement & { name: { value: string } };
+
+    const {
+      name: { value },
+    } =
+      pageNum === 1
+        ? ((e as React.FormEvent<HTMLFormElement>).target as Custom)
+        : ((e as React.RefObject<HTMLFormElement>).current as Custom);
 
     try {
       const bunjang = await axios.get(
