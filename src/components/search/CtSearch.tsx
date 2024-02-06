@@ -20,11 +20,7 @@ export type List<T extends keyof Data = keyof Data> = {
 
 type Obj = List & { [key in string]: string | boolean | null | [] | number };
 
-interface Data {
-  bunjang: List[];
-  daangn: List[];
-  jungna: List[];
-}
+type Data = { [key in "bunjang" | "daangn" | "jungna"]: List[] };
 
 const CtSearch = (): JSX.Element => {
   const [data, setData] = useState<List[]>();
@@ -79,7 +75,7 @@ const CtSearch = (): JSX.Element => {
       let dangStr = "";
       const daangn = async (num: number) => {
         /** 한번 호출당 list 12개씩옴  */
-        const { data } = await axios.get(`https://www.daangn.com/search/${value}/more/flea_market?page=${num}`);
+        const { data } = await axios.get(`https://www.daangn.com/search/${value}/more/flea_market?next_page=${num}`);
         if (num < pageNum * 10) {
           dangStr += data;
           num++;
