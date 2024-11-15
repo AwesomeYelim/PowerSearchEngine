@@ -71,44 +71,35 @@ const CtSearch = (): JSX.Element => {
         sort: "RECENT_SORT",
       });
 
-      let num = 1 + (pageNum - 1) * 10;
-      let dangStr = "";
-      const daangn = async (num: number) => {
-        /** 한번 호출당 list 12개씩옴  */
-        const { data } = await axios.get(`https://www.daangn.com/search/${value}/more/flea_market?next_page=${num}`);
-        if (num < pageNum * 10) {
-          dangStr += data;
-          num++;
-          await daangn(num);
-        }
+      // let num = 1 + (pageNum - 1) * 10;
+      // let dangStr = "";
+      // const daangn = await axios.get(`https://www.daangn.com/kr/buy-sell/?in=${value}&search=${value}`);
 
-        return dangStr;
-      };
+      // console.log(daangn);
+      // const $ = cheerio.load(await daangn(num));
 
-      const $ = cheerio.load(await daangn(num));
-
-      const lists = $("article.flat-card");
+      // const lists = $("article.flat-card");
 
       let ulList: List[] = [];
 
-      // eslint-disable-next-line array-callback-return
-      lists.map((i: number, element: BasicAcceptedElems<AnyNode>) => {
-        ulList[i] = {
-          rank: `daangn ${pageNum} ${i + 1}`,
-          title: $(element)
-            .find("a.flea-market-article-link div.article-info div.article-title-content span.article-title")
-            .text()
-            .replace(/\s/g, ""),
-          content: $(element)
-            .find("a.flea-market-article-link div.article-info div.article-title-content span.article-content")
-            .text()
-            .replace(/\s/g, ""),
-          link: $(element).find("a.flea-market-article-link").attr("href") as string,
-          img: $(element).find("a.flea-market-article-link div.card-photo img").attr("src") as string,
-          region: $(element).find("a.flea-market-article-link p.article-region-name").text(),
-          price: $(element).find("a.flea-market-article-link p.article-price").text().replace(/\s/g, ""),
-        };
-      });
+      // // eslint-disable-next-line array-callback-return
+      // lists.map((i: number, element: BasicAcceptedElems<AnyNode>) => {
+      //   ulList[i] = {
+      //     rank: `daangn ${pageNum} ${i + 1}`,
+      //     title: $(element)
+      //       .find("a.flea-market-article-link div.article-info div.article-title-content span.article-title")
+      //       .text()
+      //       .replace(/\s/g, ""),
+      //     content: $(element)
+      //       .find("a.flea-market-article-link div.article-info div.article-title-content span.article-content")
+      //       .text()
+      //       .replace(/\s/g, ""),
+      //     link: $(element).find("a.flea-market-article-link").attr("href") as string,
+      //     img: $(element).find("a.flea-market-article-link div.card-photo img").attr("src") as string,
+      //     region: $(element).find("a.flea-market-article-link p.article-region-name").text(),
+      //     price: $(element).find("a.flea-market-article-link p.article-price").text().replace(/\s/g, ""),
+      //   };
+      // });
 
       const priceComma = (price: number) => new Intl.NumberFormat("ko-KR").format(price);
 
@@ -127,17 +118,17 @@ const CtSearch = (): JSX.Element => {
             time: update_time,
           };
         }),
-        daangn: ulList.map((el) => {
-          const time = el.img.match("/\\d{6}/");
-          const calcT = time && (time as RegExpMatchArray)[0];
-          const date = calcT && new Date(+calcT.slice(1, 5), +calcT.slice(5, 7) - 1, 1, 12, 0, 0, 0);
+        // daangn: ulList.map((el) => {
+        //   const time = el.img.match("/\\d{6}/");
+        //   const calcT = time && (time as RegExpMatchArray)[0];
+        //   const date = calcT && new Date(+calcT.slice(1, 5), +calcT.slice(5, 7) - 1, 1, 12, 0, 0, 0);
 
-          return {
-            ...el,
-            link: `https://www.daangn.com${el.link}`,
-            time: date ? date.getTime() / 1000 : 0,
-          };
-        }),
+        //   return {
+        //     ...el,
+        //     link: `https://www.daangn.com${el.link}`,
+        //     time: date ? date.getTime() / 1000 : 0,
+        //   };
+        // }),
         jungna: jungna.data.data.items.map((el: Obj, i: number) => {
           const { title, sortDate, price, locationNames, url, seq } = el;
           const [local] = locationNames as string[];
@@ -155,10 +146,10 @@ const CtSearch = (): JSX.Element => {
       };
       setData((prev) => {
         return prev
-          ? [...(prev as List[]), ...eachData.bunjang, ...eachData.daangn, ...eachData.jungna].sort((a, b) => {
+          ? [...(prev as List[]), ...eachData.bunjang, ...eachData.jungna].sort((a, b) => {
               return b.time - a.time;
             })
-          : [...eachData.bunjang, ...eachData.daangn, ...eachData.jungna].sort((a, b) => {
+          : [...eachData.bunjang, ...eachData.jungna].sort((a, b) => {
               return b.time - a.time;
             });
       });
